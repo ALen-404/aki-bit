@@ -1,0 +1,39 @@
+import "base.api"
+
+type (
+    // 邮箱请求体
+    EmailReq {
+        // 钱包地址
+        Address string `form:"address"`
+    }
+
+    SubscribeReq {
+        // 钱包地址
+        Address string `json:"address"`
+    }
+
+    StatusResp {
+        BaseDataInfo
+
+        Data bool `json:"data"`
+    }
+)
+
+@server (
+    prefix: /v1
+    group:  email
+)
+
+service BtcOrder {
+    // 邮件订阅
+    @handler subscribe
+    post /email/subscribe (SubscribeReq) returns (BaseMsgResp)
+
+    // 取消订阅
+    @handler unsubscribe
+    post /email/unsubscribe (SubscribeReq) returns (BaseMsgResp)
+
+    // 获取邮件订阅状态
+    @handler getSubscribeStatus
+    get /email/status (EmailReq) returns (StatusResp)
+}

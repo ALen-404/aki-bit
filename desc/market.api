@@ -1,0 +1,56 @@
+syntax = "v1"
+
+import "./base.api"
+
+type (
+    BtcCoinInfoResp {
+        BaseDataInfo
+
+        Data BtcCoinInfo `json:"data"`
+    }
+
+    BtcCoinInfo {
+        // BTC价格，美元计价
+        Price float64 `json:"price"`
+    }
+)
+
+@server (
+    prefix: /v1
+	group: market
+    middleware: RateLimit, Cache
+)
+
+service BtcOrder {
+    // 获取BTC的当前价格
+    @handler getBtcPrice
+    get /market/btc/price returns (BtcCoinInfoResp)
+}
+
+type (
+    CategoryMarketInfoResp {
+        BaseDataInfo
+
+        Data CategoryMarketInfo `json:"data"`
+    }
+
+    CategoryMarketInfo {
+        // 统计的BRC20市场市值
+        MarketCap float64 `json:"marketCap"`
+
+        // 统计的BRC20市场24小时交易量
+        Volume24h float64 `json:"volume24h"`
+    }
+)
+
+@server (
+    prefix: /v1/market
+	group: category
+    middleware: RateLimit, Cache
+)
+
+service BtcOrder {
+    // 获取BRC20市场总体信息
+    @handler getCategoryMarketing
+    get /category/latest returns (CategoryMarketInfoResp)
+}

@@ -1,0 +1,113 @@
+syntax = "v1"
+
+import "./base.api"
+
+type (
+    TickerMarketListReq {
+        PageInfo
+
+        // 按字段排序，可选项有：marketcap/volume24h/price
+        Sort string `form:"sort,optional"`
+    }
+
+    TickerMarketListResp {
+        BaseDataInfo
+
+        Data TickerMarketList `json:"data"`
+    }
+
+    TickerMarketList {
+        BaseListInfo
+
+        Data []TickerMarketInfo `json:"data"`
+    }
+
+    TickerMarketInfo {
+        // CMC ID，后续获取单个Tick的市场信息需要
+        ID        int     `json:"id"`
+
+        // Tick 名称
+        Tick      string  `json:"tick"`
+        
+        // 市值
+        MarketCap float64 `json:"marketCap"`
+        
+        // 24小时内成交量
+        Volume24h float64 `json:"volume24h"`
+        
+        // BTC单价
+        SatPrice  float64 `json:"satPrice"`
+    }
+
+    TickerMarketReq {
+        // CMC ID, 可从列表接口返回得到
+        ID       string `form:"id,optional"`
+
+        // k线图点数
+        // 默认值：10
+        // 从当前时间往前计算，按照给定时间间隔给出相应数量的数据
+        Count    int    `form:"count,optional,default=10"`
+
+        // K线图时间间隔
+        // 默认值：1h
+        // 可选值: 1h/2h/3h/4h/5h/6h/12h/1d/2d/3d/7d/14d/15d/30d
+        Interval string `form:"interval,optional,default=1h"`
+    }
+
+    TickerMarketDetailResp {
+        BaseDataInfo
+
+        Data TickerMarketDetail `json:"data"`
+    }
+
+    TickerMarketDetail {
+        TickerMarketInfo
+
+        Quotes []OhlcvDataInUSD `json:"quotes"`
+    }
+
+    OhlcvDataInUSD {
+        // 开盘价
+        Open      float64 `json:"open"`
+
+        // 最高价
+        High      float64 `json:"high"`
+
+        // 最低价
+        Low       float64 `json:"low"`
+
+        // 收盘价
+        Close     float64 `json:"close"`
+
+        // 成交量
+        Volume    float64 `json:"volume"`
+
+        // 开盘价时间
+        OpenTime  string  `json:"openTime"`
+
+        // 最高价时间
+        HighTime  string  `json:"highTime"`
+
+        // 最低价时间
+        LowTime   string  `json:"lowTime"`
+
+        // 收盘价时间
+        CloseTime string  `json:"closeTime"`
+    }
+)
+
+@server (
+    prefix: /v1
+	group: brc20
+    middleware: RateLimit, Cache
+)
+
+service BtcOrder {
+    // 获取指定Token的市场信息
+    @handler getTickerMarketInfo
+    get /market/latest (TickerMarketReq) returns (TickerMarketDetailResp)
+
+    // 获取已知Token列表的市场信息
+    @handler getTickerMarketList
+    get /market/list/latest (TickerMarketListReq) returns (TickerMarketListResp)
+}

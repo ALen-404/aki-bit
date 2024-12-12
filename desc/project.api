@@ -1,0 +1,81 @@
+syntax = "v1"
+
+import "base.api"
+
+// 项目列表请求体
+type ProjectListReq {
+    PageInfo
+}
+
+// 项目信息
+type ProjectInfo {
+    // 项目名称
+    Name string `json:"name"`
+    // 项目类型 brc20
+    Type string `json:"type"`
+    // 项目图片
+    Image string `json:"image"`
+    // 项目信息
+    Information string `json:"information"`
+    // 第一个条件满足开启时间
+    Stage1 int64 `json:"stage_1"`
+    // 第二个条件满足开启时间
+    Stage2 int64 `json:"stage_2"`
+    // 第三个条件满足开启时间
+    Stage3 int64 `json:"stage_3"`
+}
+
+// 项目响应
+type ProjecctResp {
+    BaseDataInfo
+    Data ProjectInfo `json:"data"`
+}
+
+// 项目列表
+type ProjectList {
+    BaseListInfo
+    Data []ProjectInfo `json:"data"`
+}
+// 项目响应列表
+type ProjectListResp {
+    BaseDataInfo
+    Data ProjectList `json:"data"`
+}
+// 项目请求
+type ProjectReq {
+    ID string `path:"id"`
+}
+
+// 项目tick响应
+type ProjectTickeResp {
+    BaseDataInfo
+    Data ProjectTick `json:"data"`
+}
+
+// 项目tick信息
+type ProjectTick {
+    // tick 名称
+    Tick string `json:"tick"`
+}
+
+
+
+@server(
+    prefix: /v1
+    group: project
+)
+
+service BtcOrder {
+
+    // 获取项目列表
+    @handler getProjectList
+    get /project/list (ProjectListReq) returns (ProjectListResp)
+
+    // 根据tick获取项目详情
+    @handler getProjectById
+    get /project/:id (ProjectReq) returns (ProjecctResp)
+
+    // 根据id获取tick名称
+    @handler getProjectTickById
+    get /project/tick/:id (ProjectReq) returns (ProjectTickeResp)
+}

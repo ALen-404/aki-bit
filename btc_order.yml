@@ -1,0 +1,1140 @@
+basePath: /
+consumes:
+    - application/json
+definitions:
+    BaseDataInfo:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    BaseListInfo:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: btc_order/internal/types
+    BaseMsgResp:
+        description: The basic response without data | 基础不带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    BtcCoinInfo:
+        properties:
+            price:
+                description: BTC价格，美元计价
+                format: double
+                type: number
+                x-go-name: Price
+        type: object
+        x-go-package: btc_order/internal/types
+    BtcCoinInfoResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/BtcCoinInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    BtcOrderInfo:
+        description: btc 订单信息
+        properties:
+            amount:
+                description: 金额
+                format: uint64
+                type: integer
+                x-go-name: Amount
+            clientId:
+                description: 客户端ID
+                type: string
+                x-go-name: ClientId
+            count:
+                description: 总个数
+                format: uint64
+                type: integer
+                x-go-name: Count
+            createdAt:
+                description: 创建时间
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
+            data:
+                $ref: '#/definitions/OrderData'
+            exTime:
+                description: 过期时间
+                format: int64
+                type: integer
+                x-go-name: ExTime
+            feeRate:
+                description: fee rate
+                format: uint32
+                type: integer
+                x-go-name: FeeRate
+            files:
+                description: 文件列表
+                items:
+                    $ref: '#/definitions/OrderFile'
+                type: array
+                x-go-name: Files
+            id:
+                description: id
+                type: string
+                x-go-name: Id
+            minerFee:
+                description: miner fee
+                format: uint64
+                type: integer
+                x-go-name: MinerFee
+            payAddress:
+                description: 支付地址
+                type: string
+                x-go-name: PayAddress
+            receiveAddress:
+                description: 接收地址
+                type: string
+                x-go-name: ReceiveAddress
+            serviceFee:
+                description: 服务费
+                format: uint64
+                type: integer
+                x-go-name: ServiceFee
+            status:
+                description: '状态 : Pending Inscribed unpaid'
+                type: string
+                x-go-name: Status
+            txHash:
+                description: 交易hash
+                type: string
+                x-go-name: TxHash
+            txId:
+                description: 交易id
+                type: string
+                x-go-name: TxId
+            type:
+                description: 类型
+                format: uint8
+                type: integer
+                x-go-name: Type
+        type: object
+        x-go-package: btc_order/internal/types
+    BtcOrderListInfo:
+        description: btc 订单列表信息
+        properties:
+            createdAt:
+                description: 创建时间
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
+            id:
+                description: id
+                type: string
+                x-go-name: ID
+            status:
+                description: 状态
+                type: string
+                x-go-name: Status
+        type: object
+        x-go-package: btc_order/internal/types
+    BtcPriceResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    CategoryMarketInfo:
+        properties:
+            marketCap:
+                description: 统计的BRC20市场市值
+                format: double
+                type: number
+                x-go-name: MarketCap
+            volume24h:
+                description: 统计的BRC20市场24小时交易量
+                format: double
+                type: number
+                x-go-name: Volume24h
+        type: object
+        x-go-package: btc_order/internal/types
+    CategoryMarketInfoResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/CategoryMarketInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    CreatedOrderFile:
+        description: 创建订单文件
+        properties:
+            dataURL:
+                description: 数据Url
+                type: string
+                x-go-name: DataUrl
+            filename:
+                description: 文件名
+                type: string
+                x-go-name: FileName
+        type: object
+        x-go-package: btc_order/internal/types
+    CreatedOrderInfo:
+        description: 创建订单信息
+        properties:
+            amount:
+                description: 金额
+                format: uint64
+                type: integer
+                x-go-name: Amount
+            clientId:
+                description: 客户端ID
+                type: string
+                x-go-name: ClientId
+            count:
+                description: 总个数
+                format: uint64
+                type: integer
+                x-go-name: Count
+            createdAt:
+                description: 创建时间
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
+            exTime:
+                description: 过期时间
+                format: int64
+                type: integer
+                x-go-name: ExTime
+            feeRate:
+                description: fee rate
+                format: uint32
+                type: integer
+                x-go-name: FeeRate
+            id:
+                description: ID
+                type: string
+                x-go-name: Id
+            minerFee:
+                description: miner fee
+                format: uint64
+                type: integer
+                x-go-name: MinerFee
+            payAddress:
+                description: 支付地址
+                type: string
+                x-go-name: PayAddress
+            receiveAddress:
+                description: 接收地址
+                type: string
+                x-go-name: ReceiveAddress
+            serviceFee:
+                description: 服务费
+                format: uint64
+                type: integer
+                x-go-name: ServiceFee
+            status:
+                description: 状态
+                type: string
+                x-go-name: Status
+            type:
+                description: 订单
+                format: uint8
+                type: integer
+                x-go-name: Type
+        type: object
+        x-go-package: btc_order/internal/types
+    CreatedOrderReq:
+        description: 创建订单请求
+        properties:
+            amount:
+                description: 金额
+                format: uint64
+                type: integer
+                x-go-name: Amount
+            clientId:
+                description: 客户端id
+                type: string
+                x-go-name: ClientId
+            feeRate:
+                description: fee rate
+                format: uint32
+                type: integer
+                x-go-name: FeeRate
+            files:
+                description: 文件列表
+                items:
+                    $ref: '#/definitions/CreatedOrderFile'
+                type: array
+                x-go-name: Files
+            receiveAddress:
+                description: 接收地址
+                type: string
+                x-go-name: ReceiveAddress
+        type: object
+        x-go-package: btc_order/internal/types
+    CreatedOrderResp:
+        description: 创建订单请求
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/CreatedOrderInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    EmailReq:
+        description: 邮箱请求体
+        properties:
+            Address:
+                description: 钱包地址
+                type: string
+        type: object
+        x-go-package: btc_order/internal/types
+    OhlcvDataInUSD:
+        properties:
+            close:
+                description: 收盘价
+                format: double
+                type: number
+                x-go-name: Close
+            closeTime:
+                description: 收盘价时间
+                type: string
+                x-go-name: CloseTime
+            high:
+                description: 最高价
+                format: double
+                type: number
+                x-go-name: High
+            highTime:
+                description: 最高价时间
+                type: string
+                x-go-name: HighTime
+            low:
+                description: 最低价
+                format: double
+                type: number
+                x-go-name: Low
+            lowTime:
+                description: 最低价时间
+                type: string
+                x-go-name: LowTime
+            open:
+                description: 开盘价
+                format: double
+                type: number
+                x-go-name: Open
+            openTime:
+                description: 开盘价时间
+                type: string
+                x-go-name: OpenTime
+            volume:
+                description: 成交量
+                format: double
+                type: number
+                x-go-name: Volume
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderData:
+        description: 订单数据信息
+        properties:
+            outputIndex:
+                description: 输出index
+                format: uint32
+                type: integer
+                x-go-name: OutputIndex
+            paymentAddress:
+                description: 支付地址
+                type: string
+                x-go-name: PaymentAddress
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderFile:
+        description: 订单文件
+        properties:
+            address:
+                description: 钱包地址
+                type: string
+                x-go-name: Address
+            fileName:
+                description: 文件名
+                type: string
+                x-go-name: FileName
+            size:
+                description: 文件大小
+                format: uint64
+                type: integer
+                x-go-name: Size
+            txId:
+                description: 交易ID
+                type: string
+                x-go-name: TxId
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderInfoResp:
+        description: 订单请求响应
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/BtcOrderInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderList:
+        description: 订单列表信息
+        properties:
+            data:
+                description: 订单列表
+                items:
+                    $ref: '#/definitions/BtcOrderListInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderListReq:
+        description: 查看订单列表请求
+        properties:
+            Page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+            PageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+            ReceiveAddress:
+                description: 接收地址
+                type: string
+        required:
+            - Page
+            - PageSize
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderListResp:
+        description: 订单列表响应体
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/OrderList'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    OrderPutInfoReq:
+        description: 订单修改请求
+        properties:
+            Id:
+                description: id
+                type: string
+            commitAddrs:
+                description: 体检地址
+                items:
+                    type: string
+                type: array
+                x-go-name: CommitAddrs
+            commitTx:
+                description: commit hash
+                type: string
+                x-go-name: CommitTx
+            revealTxs:
+                description: reveal txs
+                items:
+                    type: string
+                type: array
+                x-go-name: RevealTxs
+        type: object
+        x-go-package: btc_order/internal/types
+    PageInfo:
+        description: The page request parameters | 列表请求参数
+        properties:
+            Page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+            PageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+        required:
+            - Page
+            - PageSize
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjecctResp:
+        description: 项目响应
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProjectInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectInfo:
+        description: 项目信息
+        properties:
+            image:
+                description: 项目图片
+                type: string
+                x-go-name: Image
+            information:
+                description: 项目信息
+                type: string
+                x-go-name: Information
+            name:
+                description: 项目名称
+                type: string
+                x-go-name: Name
+            stage_1:
+                description: 第一个条件满足开启时间
+                format: int64
+                type: integer
+                x-go-name: Stage1
+            stage_2:
+                description: 第二个条件满足开启时间
+                format: int64
+                type: integer
+                x-go-name: Stage2
+            stage_3:
+                description: 第三个条件满足开启时间
+                format: int64
+                type: integer
+                x-go-name: Stage3
+            type:
+                description: 项目类型 brc20
+                type: string
+                x-go-name: Type
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectList:
+        description: 项目列表
+        properties:
+            data:
+                description: Data | 数据
+                items:
+                    $ref: '#/definitions/ProjectInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectListReq:
+        description: 项目列表请求体
+        properties:
+            Page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+            PageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+        required:
+            - Page
+            - PageSize
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectListResp:
+        description: 项目响应列表
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProjectList'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectReq:
+        description: 项目请求
+        properties:
+            ID:
+                type: string
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectTick:
+        description: 项目tick信息
+        properties:
+            tick:
+                description: tick 名称
+                type: string
+                x-go-name: Tick
+        type: object
+        x-go-package: btc_order/internal/types
+    ProjectTickeResp:
+        description: 项目tick响应
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProjectTick'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    StatusResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: boolean
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    SubscribeReq:
+        properties:
+            address:
+                description: 钱包地址
+                type: string
+                x-go-name: Address
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketDetail:
+        properties:
+            id:
+                description: CMC ID，后续获取单个Tick的市场信息需要
+                format: int64
+                type: integer
+                x-go-name: ID
+            marketCap:
+                description: 市值
+                format: double
+                type: number
+                x-go-name: MarketCap
+            quotes:
+                items:
+                    $ref: '#/definitions/OhlcvDataInUSD'
+                type: array
+                x-go-name: Quotes
+            satPrice:
+                description: BTC单价
+                format: double
+                type: number
+                x-go-name: SatPrice
+            tick:
+                description: Tick 名称
+                type: string
+                x-go-name: Tick
+            volume24h:
+                description: 24小时内成交量
+                format: double
+                type: number
+                x-go-name: Volume24h
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketDetailResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TickerMarketDetail'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketInfo:
+        properties:
+            id:
+                description: CMC ID，后续获取单个Tick的市场信息需要
+                format: int64
+                type: integer
+                x-go-name: ID
+            marketCap:
+                description: 市值
+                format: double
+                type: number
+                x-go-name: MarketCap
+            satPrice:
+                description: BTC单价
+                format: double
+                type: number
+                x-go-name: SatPrice
+            tick:
+                description: Tick 名称
+                type: string
+                x-go-name: Tick
+            volume24h:
+                description: 24小时内成交量
+                format: double
+                type: number
+                x-go-name: Volume24h
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketList:
+        properties:
+            data:
+                description: Data | 数据
+                items:
+                    $ref: '#/definitions/TickerMarketInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketListReq:
+        properties:
+            Page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+            PageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+            Sort:
+                description: 按字段排序，可选项有：marketcap/volume24h/price
+                type: string
+        required:
+            - Page
+            - PageSize
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketListResp:
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TickerMarketList'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: btc_order/internal/types
+    TickerMarketReq:
+        properties:
+            Count:
+                description: |-
+                    k线图点数
+                    默认值：10
+                    从当前时间往前计算，按照给定时间间隔给出相应数量的数据
+                format: int64
+                type: integer
+            ID:
+                description: CMC ID, 可从列表接口返回得到
+                type: string
+            Interval:
+                description: |-
+                    K线图时间间隔
+                    默认值：1h
+                    可选值: 1h/2h/3h/4h/5h/6h/12h/1d/2d/3d/7d/14d/15d/30d
+                type: string
+        type: object
+        x-go-package: btc_order/internal/types
+    UUIDPathReq:
+        properties:
+            Id:
+                description: ID
+                type: string
+        required:
+            - Id
+        type: object
+        x-go-package: btc_order/internal/types
+host: localhost:3000
+info:
+    description: 'Description: btc_order service'
+    title: btc_order
+    version: 0.0.1
+paths:
+    /v1/btc/order:
+        post:
+            description: 创建订单
+            operationId: CreatedOrdOrder
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreatedOrderReq'
+                    type: object
+            responses:
+                "200":
+                    description: CreatedOrderResp
+                    schema:
+                        $ref: '#/definitions/CreatedOrderResp'
+            summary: 创建订单
+            tags:
+                - btc_order
+    /v1/btc/order/{id}:
+        get:
+            description: 根据订单ID获取订单详情
+            operationId: GetOrderById
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/UUIDPathReq'
+                    type: object
+            responses:
+                "200":
+                    description: OrderInfoResp
+                    schema:
+                        $ref: '#/definitions/OrderInfoResp'
+            summary: 根据订单ID获取订单详情
+            tags:
+                - btc_order
+        put:
+            description: 根据订单ID修改订单信息
+            operationId: PutOrderById
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/OrderPutInfo'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: 根据订单ID修改订单信息
+            tags:
+                - btc_order
+    /v1/btc/order/list/{receiveAddress}:
+        get:
+            description: 根据钱包地址获取订单列表
+            operationId: GetOrderListByReceiveAddress
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/OrderListReq'
+                    type: object
+            responses:
+                "200":
+                    description: OrderListResp
+                    schema:
+                        $ref: '#/definitions/OrderListResp'
+            summary: 根据钱包地址获取订单列表
+            tags:
+                - btc_order
+    /v1/btc/price:
+        get:
+            description: 获取btc价格
+            operationId: GetBtcPirce
+            responses:
+                "200":
+                    description: BtcPriceResp
+                    schema:
+                        $ref: '#/definitions/BtcPriceResp'
+            summary: 获取btc价格
+            tags:
+                - btc_price
+    /v1/email/{address}/status:
+        get:
+            description: 获取邮件订阅状态
+            operationId: GetSubscribeStatus
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/EmailReq'
+                    type: object
+            responses:
+                "200":
+                    description: StatusResp
+                    schema:
+                        $ref: '#/definitions/StatusResp'
+            summary: 获取邮件订阅状态
+            tags:
+                - email
+    /v1/email/{address}/subscribe:
+        post:
+            description: 邮件订阅
+            operationId: Subscribe
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/EmailReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: 邮件订阅
+            tags:
+                - email
+    /v1/email/{address}/unsubscribe:
+        post:
+            description: 取消订阅
+            operationId: Unsubscribe
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/EmailReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: 取消订阅
+            tags:
+                - email
+    /v1/market/btc/price:
+        get:
+            description: 获取BTC的当前价格
+            operationId: GetBtcPrice
+            responses:
+                "200":
+                    description: BtcCoinInfoResp
+                    schema:
+                        $ref: '#/definitions/BtcCoinInfoResp'
+            summary: 获取BTC的当前价格
+            tags:
+                - market
+    /v1/market/category/latest:
+        get:
+            description: 获取BRC20市场总体信息
+            operationId: GetCategoryMarketing
+            responses:
+                "200":
+                    description: CategoryMarketInfoResp
+                    schema:
+                        $ref: '#/definitions/CategoryMarketInfoResp'
+            summary: 获取BRC20市场总体信息
+            tags:
+                - category
+    /v1/market/latest:
+        get:
+            description: 获取指定Token的市场信息
+            operationId: GetTickerMarketInfo
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TickerMarketReq'
+                    type: object
+            responses:
+                "200":
+                    description: TickerMarketDetailResp
+                    schema:
+                        $ref: '#/definitions/TickerMarketDetailResp'
+            summary: 获取指定Token的市场信息
+            tags:
+                - brc20
+    /v1/market/list/latest:
+        get:
+            description: 获取已知Token列表的市场信息
+            operationId: GetTickerMarketList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TickerMarketListReq'
+                    type: object
+            responses:
+                "200":
+                    description: TickerMarketListResp
+                    schema:
+                        $ref: '#/definitions/TickerMarketListResp'
+            summary: 获取已知Token列表的市场信息
+            tags:
+                - brc20
+    /v1/project/{id}:
+        get:
+            description: 根据tick获取项目详情
+            operationId: GetProjectById
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/ProjectReq'
+                    type: object
+            responses:
+                "200":
+                    description: ProjecctResp
+                    schema:
+                        $ref: '#/definitions/ProjecctResp'
+            summary: 根据tick获取项目详情
+            tags:
+                - project
+    /v1/project/list:
+        get:
+            description: 获取项目列表
+            operationId: GetProjectList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/ProjectListReq'
+                    type: object
+            responses:
+                "200":
+                    description: ProjectListResp
+                    schema:
+                        $ref: '#/definitions/ProjectListResp'
+            summary: 获取项目列表
+            tags:
+                - project
+    /v1/project/tick/{id}:
+        get:
+            operationId: GetProjectTickById
+            tags:
+                - project
+produces:
+    - application/json
+schemes:
+    - http
+    - https
+security:
+    - Token:
+        - '[]'
+securityDefinitions:
+    Token:
+        in: header
+        name: Authorization
+        type: apiKey
+swagger: "2.0"

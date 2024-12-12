@@ -1,0 +1,24 @@
+
+import "base.api"
+
+type BtcPrice {
+	BtcPrice string `json:"BTCPrice"`
+	Time     int64  `json:"time"`
+	Code     string `json:"code"`
+}
+
+type BtcPriceResp {
+	BaseDataInfo
+	Data interface{} `json:"data"`
+}
+
+@server (
+	prefix: /v1
+	group:  btc/price
+)
+service BtcOrder {
+	// 获取btc价格
+	@handler GetBtcPirce
+	get /btc/price () returns (BtcPriceResp)
+}
+
